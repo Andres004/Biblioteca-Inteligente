@@ -16,3 +16,34 @@ body {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+.navbar {
+  width: 100%;
+  padding: 18px 24px;
+  background-color: #111827;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  &__logo {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  &__links {
+    display: flex;
+    gap: 18px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
