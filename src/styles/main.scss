@@ -85,3 +85,14 @@ body {
     }
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0f172a;
+    color: #f8fafc;
+  }
+
+  .navbar {
+    background-color: #020617;
+  }
+}
