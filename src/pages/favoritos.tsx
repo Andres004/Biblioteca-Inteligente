@@ -18,18 +18,18 @@ export default function Favoritos() {
   return (
     <div>
       <Navbar />
-      <div style={{ padding: '0 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ marginBottom: '20px', color: '#333' }}>Mis Libros Favoritos</h2>
+      <div className="container" style={{ paddingBottom: '40px' }}>
+        <h2 className="section-title">Mis Libros Favoritos</h2>
         
         {favs.length === 0 ? (
-          <p style={{ color: '#666', textAlign: 'center', padding: '40px' }}>
+          <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '40px' }}>
             No tienes libros en favoritos todavia.
           </p>
         ) : (
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-            gap: '20px' 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 
+            gap: '30px' 
           }}>
             {favs.map((b: any) => (
               <BookCard
@@ -39,8 +39,9 @@ export default function Favoritos() {
                 author={b.author}
                 firstPublishYear={b.year}
                 editionCount={b.editions}
+                coverUrl={b.cover || b.coverUrl}
                 isFavorite={true}
-                onToggleFavorite={handleRemove}
+                onToggleFavorite={() => handleRemove(b.id)}
                 onViewDetails={(id) => window.location.href = `/libro/${id}`}
               />
             ))}
