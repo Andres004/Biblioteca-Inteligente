@@ -24,25 +24,30 @@ export function BookCard({
     onViewDetails
 }: BookCardProps) {
     const coverUrl = coverId 
-    ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`
-    : 'https://www.pngfind.com/pngs/m/651-6516020_portada-libro-png-metal-transparent-png.png';
-
+        ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` 
+        : 'https://via.placeholder.com/200x300?text=Sin+Portada';
+    
     const authorName = Array.isArray(author) ? author.join(', ') : author;
 
     return (
-    <div style={{ border: '1px solid #ccc', padding: '1rem', margin: '1rem', width: '250px' }}>
-        <img src={coverUrl} alt={`Portada de ${title}`} style={{ width: '100%', height: 'auto' }} />
-        <h3>{title}</h3>
-        <p><strong>Autor:</strong> {authorName || 'Desconocido'}</p>
-        {firstPublishYear && <p><strong>Año de publicación:</strong> {firstPublishYear}</p>}
-        {editionCount && <p><strong>Ediciones:</strong> {editionCount}</p>}
-    
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
-        <button onClick={() => onViewDetails(id)}> Ver detalle </button>
-        <button onClick={() => onToggleFavorite(id)}>
-            {isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-        </button>
+        <div className="book-card">
+            <img src={coverUrl} alt={title} className="book-cover" />
+            
+            <div className="book-info">
+                <h3 className="book-title">{title}</h3>
+                <p><strong>Autor:</strong> {authorName || 'Desconocido'}</p>
+                {firstPublishYear && <p><strong>Publicacion:</strong> {firstPublishYear}</p>}
+                {editionCount && <p><strong>Ediciones:</strong> {editionCount}</p>}
+            </div>
+
+            <div style={{ marginTop: '15px' }}>
+                <button className="btn btn-primary" onClick={() => onViewDetails(id)}>
+                    Ver detalle
+                </button>
+                <button className="btn" onClick={() => onToggleFavorite(id)}>
+                    {isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+                </button>
+            </div>
         </div>
-    </div>
     );
 }
