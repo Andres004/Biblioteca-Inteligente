@@ -1,49 +1,49 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { validateSearchQuery } from '../utils/utils';
 
-export type SearchBarProps = {
-    onSearch: (query: string, type: 'q' | 'title' | 'author' | 'subject') => void;
+type Props = {
+  onSearch: (query: string, type: 'q' | 'title' | 'author' | 'subject') => void;
 };
 
-export function SearchBar({ onSearch }: SearchBarProps) {
-    const [query, setQuery] = useState('');
-    const [searchType, setSearchType] = useState<'q' | 'title' | 'author' | 'subject'>('q');
-    const [error, setError] = useState<string | null>(null);
+export function SearchBar({ onSearch }: Props) {
+  const [query, setQuery] = useState('');
+  const [searchType, setSearchType] = useState<'q' | 'title' | 'author' | 'subject'>('q');
+  const [error, setError] = useState<string | null>(null);
 
-    const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    
     const validationError = validateSearchQuery(query);
     if (validationError) {
-        setError(validationError);
-        return;
+      setError(validationError);
+      return;
     }
-
     setError(null);
     onSearch(query.trim(), searchType);
-    };
+  };
 
-    return (
-    <div style={{ marginBottom: '1rem' }}>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-        <input 
-            type="text" 
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar libros..."
-            style={{ padding: '0.5rem', flex: 1 }}/>
-        <select 
-            value={searchType}
-            onChange={(e) => setSearchType(e.target.value as any)}
-            style={{ padding: '0.5rem' }}>
-            <option value="q">Todos</option>
-            <option value="title">Título</option>
-            <option value="author">Autor</option>
-            <option value="subject">Tema/Palabra clave</option>
+  return (
+    <div>
+      <form onSubmit={handleSearch} className="search-bar">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar libros..."
+          className="search-bar__input"
+        />
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value as 'q' | 'title' | 'author' | 'subject')}
+          className="search-bar__select"
+        >
+          <option value="q">Todos</option>
+          <option value="title">Título</option>
+          <option value="author">Autor</option>
+          <option value="subject">Tema</option>
         </select>
-        <button type="submit" style={{ padding: '0.5rem 1rem' }}>Buscar</button>
-        </form>
-        {error && <p style={{ color: 'red', marginTop: '0.5rem' }}>{error}</p>}
+        <button type="submit" className="btn btn-primary">Buscar</button>
+      </form>
+      {error && <p className="search-bar__error">{error}</p>}
     </div>
-    );
+  );
 }
