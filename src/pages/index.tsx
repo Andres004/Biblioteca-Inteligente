@@ -11,12 +11,10 @@ export default function Home() {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const fetchInicio = async () => {
-      const res = await searchBooks('programming');
+    searchBooks('programming').then((res) => {
       setBooks(res);
       setLoading(false);
-    };
-    fetchInicio();
+    });
   }, []);
 
   const handleFav = (book: any) => {
@@ -31,17 +29,13 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="container">
-        <h2 style={{ marginBottom: '20px' }}>Libros Destacados</h2>
-        
+      <div className="container page-content">
+        <h2 className="section-title">Libros Destacados</h2>
+
         {loading ? (
           <Loading />
         ) : (
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-            gap: '20px' 
-          }}>
+          <div className="books-grid">
             {books.map((b: any) => (
               <BookCard
                 key={b.id}
