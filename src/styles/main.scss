@@ -1,4 +1,21 @@
-/* src/styles/main.scss */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --card-bg: #f9f9f9;
+  --border-color: #e0e0e0;
+  --btn-bg: #e0e0e0;
+  --btn-hover: #cccccc;
+}
+
+body.dark {
+  --bg-color: #1a1a1a;
+  --text-color: #ffffff;
+  --card-bg: #2d2d2d;
+  --border-color: #404040;
+  --btn-bg: #404040;
+  --btn-hover: #555555;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -6,13 +23,66 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #ffffff;
-  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.book-card {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-cover {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: var(--border-color);
+}
+
+.book-info {
+  flex-grow: 1;
+}
+
+.book-title {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: var(--btn-hover);
+}
+
+.btn-primary {
+  background-color: #0066cc;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0052a3;
 }
