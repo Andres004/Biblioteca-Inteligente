@@ -1,0 +1,8 @@
+@use '../../styles/variables' as v;
+
+.search-section {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-md;
+  margin-bottom: v.$spacing-lg;
+}

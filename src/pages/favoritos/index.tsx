@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Navbar } from '../components/NavBar';
-import { BookCard } from '../components/BookCard';
-import { getFavorites, removeFavorite } from '../utils/storage';
+import { Navbar } from '../../components/NavBar';
+import { BookCard } from '../../components/BookCard';
+import { getFavorites, removeFavorite } from '../../utils/storage';
 
 export default function Favoritos() {
   const [favs, setFavs] = useState<any[]>([]);
@@ -18,19 +18,13 @@ export default function Favoritos() {
   return (
     <div>
       <Navbar />
-      <div className="container" style={{ paddingBottom: '40px' }}>
+      <div className="container page-content">
         <h2 className="section-title">Mis Libros Favoritos</h2>
-        
+
         {favs.length === 0 ? (
-          <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '40px' }}>
-            No tienes libros en favoritos todavia.
-          </p>
+          <p className="empty-state">No tienes libros en favoritos todavía.</p>
         ) : (
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 
-            gap: '30px' 
-          }}>
+          <div className="books-grid">
             {favs.map((b: any) => (
               <BookCard
                 key={b.id}

@@ -1,0 +1,110 @@
+@use '../../styles/variables' as v;
+
+.detail-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: v.$spacing-xl;
+
+  &__layout {
+    display: flex;
+    gap: v.$spacing-lg;
+    flex-wrap: wrap;
+  }
+
+  &__cover {
+    width: 280px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      border-radius: v.$border-radius-md;
+      border: 1px solid var(--border-color);
+    }
+
+    &--placeholder {
+      width: 280px;
+      height: 380px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: v.$border-radius-md;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 260px;
+
+    h1 {
+      font-size: v.$font-size-title;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: v.$spacing-sm;
+      line-height: 1.3;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: v.$spacing-xs;
+    }
+
+    strong {
+      color: var(--text-color);
+    }
+  }
+
+  &__description {
+    margin-top: v.$spacing-lg;
+
+    h3 {
+      font-size: v.$font-size-base;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: v.$spacing-xs;
+    }
+
+    p {
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: v.$spacing-lg;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: v.$spacing-sm;
+    flex-wrap: wrap;
+    margin-top: v.$spacing-md;
+  }
+}
+
+@media (max-width: v.$breakpoint-mobile) {
+  .detail-page {
+    &__layout {
+      flex-direction: column;
+    }
+
+    &__cover {
+      width: 100%;
+
+      &--placeholder {
+        width: 100%;
+      }
+    }
+  }
+}
