@@ -13,11 +13,19 @@ export default function Buscar() {
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  
+  const [page, setPage] = useState(1);
+  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentType, setCurrentType] = useState<'q' | 'title' | 'author' | 'subject'>('q');
 
-  const handleSearch = async (query: string, type: 'q' | 'title' | 'author' | 'subject') => {
+  const handleSearch = async (query: string, type: 'q' | 'title' | 'author' | 'subject', pageNum: number = 1) => {
     setLoading(true);
     setHasSearched(true);
-    const results = await searchBooks(query, type);
+    setCurrentQuery(query);
+    setCurrentType(type);
+    setPage(pageNum);
+
+    const results = await searchBooks(query, type, pageNum);
     setBooks(results);
     setFilteredBooks(results);
     setLoading(false);
@@ -60,14 +68,24 @@ export default function Buscar() {
     setRefresh(!refresh);
   };
 
+  const prevPage = () => {
+    if (page > 1) {
+      handleSearch(currentQuery, currentType, page - 1);
+    }
+  };
+
+  const nextPage = () => {
+    handleSearch(currentQuery, currentType, page + 1);
+  };
+
   return (
     <div>
       <Navbar />
-      <div style={{ padding: '0 20px', maxWidth: '1200px', margin: '0 auto' }}>
-        <h2 style={{ marginBottom: '20px', color: '#333' }}>Buscador Avanzado</h2>
+      <div className="container" style={{ paddingBottom: '40px' }}>
+        <h2 style={{ marginBottom: '20px' }}>Buscador Avanzado</h2>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '30px' }}>
-          <SearchBar onSearch={handleSearch} />
+          <SearchBar onSearch={(q, t) => handleSearch(q, t, 1)} />
           <FilterPanel onApplyFilters={handleApplyFilters} />
         </div>
 
@@ -76,7 +94,7 @@ export default function Buscar() {
         ) : (
           <div>
             {hasSearched && filteredBooks.length === 0 && (
-              <p style={{ color: '#666', textAlign: 'center', padding: '40px' }}>
+              <p style={{ textAlign: 'center', padding: '40px' }}>
                 No se encontraron resultados.
               </p>
             )}
@@ -94,12 +112,36 @@ export default function Buscar() {
                   author={b.author}
                   firstPublishYear={b.year}
                   editionCount={b.editions}
+                  coverUrl={b.cover}
                   isFavorite={isFavorite(b.id)}
                   onToggleFavorite={() => handleFav(b)}
                   onViewDetails={(id) => window.location.href = `/libro/${id}`}
                 />
               ))}
             </div>
+
+            {filteredBooks.length > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '40px' }}>
+                <button 
+                  className="btn" 
+                  style={{ width: 'auto', padding: '10px 20px' }} 
+                  onClick={prevPage} 
+                  disabled={page === 1}
+                >
+                  Anterior
+                </button>
+                <span style={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+                  Pagina {page}
+                </span>
+                <button 
+                  className="btn" 
+                  style={{ width: 'auto', padding: '10px 20px' }} 
+                  onClick={nextPage}
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
-export const searchBooks = async (query: string, type: string = 'q') => {
+export const searchBooks = async (query: string, type: string = 'q', page: number = 1) => {
   try {
-    const url = `https://openlibrary.org/search.json?${type}=${query}&limit=15`;
+    const url = `https://openlibrary.org/search.json?${type}=${query}&limit=15&page=${page}`;
     const res = await fetch(url);
     const data = await res.json();
 
