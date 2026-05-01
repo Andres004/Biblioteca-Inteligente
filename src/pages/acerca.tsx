@@ -24,7 +24,7 @@ export default function Acerca() {
               Ricardo Andrade
             </li>
             <li style={{ padding: '10px 0', borderBottom: '1px solid var(--border-color)', color: 'var(--text-color)', fontSize: '16px' }}>
-              Mauricio Garron
+              Mauricio Garrón
             </li>
             <li style={{ padding: '10px 0', color: 'var(--text-color)', fontSize: '16px' }}>
               Nahuel Pairumani
