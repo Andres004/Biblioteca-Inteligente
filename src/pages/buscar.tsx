@@ -5,12 +5,14 @@ import { FilterPanel, FilterValues } from '../components/FilterPanel';
 import { BookCard } from '../components/BookCard';
 import { Loading } from '../components/Loading';
 import { searchBooks } from '../services/openLibraryService';
+import { isFavorite, addFavorite, removeFavorite } from '../utils/storage';
 
 export default function Buscar() {
   const [books, setBooks] = useState<any[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const handleSearch = async (query: string, type: 'q' | 'title' | 'author' | 'subject') => {
     setLoading(true);
@@ -27,23 +29,19 @@ export default function Buscar() {
     if (filters.minYear) {
       result = result.filter(b => b.year >= parseInt(filters.minYear as string));
     }
-    
     if (filters.maxYear) {
       result = result.filter(b => b.year <= parseInt(filters.maxYear as string));
     }
-    
     if (filters.language) {
       result = result.filter(b => 
         b.language && b.language.includes(filters.language?.toLowerCase())
       );
     }
-    
     if (filters.author) {
       result = result.filter(b => 
         b.author.toLowerCase().includes((filters.author as string).toLowerCase())
       );
     }
-
     if (filters.sortBy === 'year') {
       result.sort((a, b) => b.year - a.year);
     } else if (filters.sortBy === 'editions') {
@@ -51,6 +49,15 @@ export default function Buscar() {
     }
 
     setFilteredBooks(result);
+  };
+
+  const handleFav = (book: any) => {
+    if (isFavorite(book.id)) {
+      removeFavorite(book.id);
+    } else {
+      addFavorite(book);
+    }
+    setRefresh(!refresh);
   };
 
   return (
@@ -87,8 +94,8 @@ export default function Buscar() {
                   author={b.author}
                   firstPublishYear={b.year}
                   editionCount={b.editions}
-                  isFavorite={false}
-                  onToggleFavorite={(id) => console.log('fav', id)}
+                  isFavorite={isFavorite(b.id)}
+                  onToggleFavorite={() => handleFav(b)}
                   onViewDetails={(id) => window.location.href = `/libro/${id}`}
                 />
               ))}
