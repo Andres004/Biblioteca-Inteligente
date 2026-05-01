@@ -5,6 +5,7 @@ export type BookCardProps = {
     title: string;
     author: string | string[];
     coverId?: number;
+    coverUrl?: string;
     firstPublishYear?: number;
     editionCount?: number;
     isFavorite: boolean;
@@ -17,27 +18,35 @@ export function BookCard({
     title,
     author,
     coverId,
+    coverUrl,
     firstPublishYear,
     editionCount,
     isFavorite,
     onToggleFavorite,
     onViewDetails
 }: BookCardProps) {
-    const coverUrl = coverId 
+    const finalCover = coverUrl || (coverId 
         ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` 
-        : 'https://via.placeholder.com/200x300?text=Sin+Portada';
+        : 'https://placehold.co/200x300?text=Sin+Portada');
     
     const authorName = Array.isArray(author) ? author.join(', ') : author;
 
     return (
         <div className="book-card">
-            <img src={coverUrl} alt={title} className="book-cover" />
+            <img 
+                src={finalCover} 
+                alt={title} 
+                className="book-cover" 
+                onError={(e) => {
+                    e.currentTarget.src = 'https://placehold.co/200x300?text=Sin+Portada';
+                }}
+            />
             
             <div className="book-info">
                 <h3 className="book-title">{title}</h3>
                 <p><strong>Autor:</strong> {authorName || 'Desconocido'}</p>
-                {firstPublishYear && <p><strong>Publicacion:</strong> {firstPublishYear}</p>}
-                {editionCount && <p><strong>Ediciones:</strong> {editionCount}</p>}
+                {firstPublishYear ? <p><strong>Publicacion:</strong> {firstPublishYear}</p> : null}
+                {editionCount ? <p><strong>Ediciones:</strong> {editionCount}</p> : null}
             </div>
 
             <div style={{ marginTop: '15px' }}>

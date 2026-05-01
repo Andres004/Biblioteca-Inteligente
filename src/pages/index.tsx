@@ -31,27 +31,34 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <h2 style={{ paddingLeft: '20px' }}>Libros Destacados</h2>
-      
-      {loading ? (
-        <Loading />
-      ) : (
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-          {books.map((b: any) => (
-            <BookCard
-              key={b.id}
-              id={b.id}
-              title={b.title}
-              author={b.author}
-              firstPublishYear={b.year}
-              editionCount={b.editions}
-              isFavorite={isFavorite(b.id)}
-              onToggleFavorite={() => handleFav(b)}
-              onViewDetails={(id) => window.location.href = `/libro/${id}`}
-            />
-          ))}
-        </div>
-      )}
+      <div className="container">
+        <h2 style={{ marginBottom: '20px' }}>Libros Destacados</h2>
+        
+        {loading ? (
+          <Loading />
+        ) : (
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
+            gap: '20px' 
+          }}>
+            {books.map((b: any) => (
+              <BookCard
+                key={b.id}
+                id={b.id}
+                title={b.title}
+                author={b.author}
+                firstPublishYear={b.year}
+                editionCount={b.editions}
+                coverUrl={b.cover}
+                isFavorite={isFavorite(b.id)}
+                onToggleFavorite={() => handleFav(b)}
+                onViewDetails={(id) => window.location.href = `/libro/${id}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
