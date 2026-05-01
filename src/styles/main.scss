@@ -1,4 +1,8 @@
 @use 'variables' as v;
+@use '../pages/acerca/acerca';
+@use '../pages/buscar/buscar';
+@use '../pages/favoritos/favoritos';
+@use '../pages/libro/libro';
 
 :root {
   --bg-color: #{v.$color-bg};
@@ -256,12 +260,7 @@ body.dark .toggle-thumb {
   gap: v.$spacing-md;
 }
 
-.search-section {
-  display: flex;
-  flex-direction: column;
-  gap: v.$spacing-md;
-  margin-bottom: v.$spacing-lg;
-}
+
 
 .search-bar {
   display: flex;
@@ -384,161 +383,6 @@ body.dark .toggle-thumb {
   font-size: v.$font-size-lg;
 }
 
-.about-page {
-  max-width: 750px;
-  margin: 0 auto;
-  text-align: center;
-
-  &__intro {
-    font-size: v.$font-size-lg;
-    color: var(--text-muted);
-    margin-bottom: v.$spacing-xl;
-    line-height: 1.7;
-  }
-
-  &__card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: v.$border-radius-md;
-    padding: v.$spacing-lg;
-    margin-bottom: v.$spacing-xl;
-    text-align: left;
-
-    h2 {
-      font-size: v.$font-size-xl;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-bottom: v.$spacing-md;
-    }
-  }
-
-  &__team-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-color);
-      font-size: v.$font-size-base;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-
-  &__footer {
-    border-top: 1px solid var(--border-color);
-    padding-top: v.$spacing-md;
-
-    p {
-      margin: 4px 0;
-      color: var(--text-muted);
-      font-size: v.$font-size-sm;
-
-      &:first-child {
-        color: var(--text-color);
-        font-weight: 600;
-      }
-    }
-  }
-}
-
-.detail-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding-bottom: v.$spacing-xl;
-
-  &__layout {
-    display: flex;
-    gap: v.$spacing-lg;
-    flex-wrap: wrap;
-  }
-
-  &__cover {
-    width: 280px;
-    flex-shrink: 0;
-
-    img {
-      width: 100%;
-      border-radius: v.$border-radius-md;
-      border: 1px solid var(--border-color);
-    }
-
-    &--placeholder {
-      width: 280px;
-      height: 380px;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: v.$border-radius-md;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-    }
-  }
-
-  &__info {
-    flex: 1;
-    min-width: 260px;
-
-    h1 {
-      font-size: v.$font-size-title;
-      font-weight: 700;
-      color: var(--text-color);
-      margin-bottom: v.$spacing-sm;
-      line-height: 1.3;
-    }
-
-    p {
-      color: var(--text-muted);
-      margin-bottom: v.$spacing-xs;
-    }
-
-    strong {
-      color: var(--text-color);
-    }
-  }
-
-  &__description {
-    margin-top: v.$spacing-lg;
-
-    h3 {
-      font-size: v.$font-size-base;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-bottom: v.$spacing-xs;
-    }
-
-    p {
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-  }
-
-  &__link {
-    display: inline-block;
-    margin-top: v.$spacing-lg;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-
-    &:hover {
-      color: var(--primary-hover);
-      text-decoration: underline;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    gap: v.$spacing-sm;
-    flex-wrap: wrap;
-    margin-top: v.$spacing-md;
-  }
-}
-
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.4; }
@@ -582,21 +426,4 @@ body.dark .toggle-thumb {
     flex-direction: column;
   }
 
-  .detail-page {
-    &__layout {
-      flex-direction: column;
-    }
-
-    &__cover {
-      width: 100%;
-
-      &--placeholder {
-        width: 100%;
-      }
-    }
-  }
-
-  .about-page {
-    text-align: left;
-  }
 }
